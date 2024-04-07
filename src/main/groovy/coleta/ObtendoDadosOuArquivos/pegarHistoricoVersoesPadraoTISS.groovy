@@ -5,6 +5,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import coleta.Utilities.criarPasta
 
 
 static public pegarHistoricoVersoes() throws IOException{
@@ -12,11 +13,8 @@ static public pegarHistoricoVersoes() throws IOException{
     try {
 
         Document docPaginaHistorico = Jsoup.connect("https://www.gov.br/ans/pt-br/assuntos/prestadores/padrao-para-troca-de-informacao-de-saude-suplementar-2013-tiss/padrao-tiss-historico-das-versoes-dos-componentes-do-padrao-tiss").get()
-
         Element tabela = docPaginaHistorico.select("table").get(0)
-
         tabela.getElementsByTag("tr").first().remove() //remove o primeiro tr com o "cabeçalho"
-
         Elements elementosTr = tabela.getElementsByTag("tr")
 
         List<HistoricoMes> historico = []
@@ -38,12 +36,28 @@ static public pegarHistoricoVersoes() throws IOException{
             }
         }
 
+
+        criarPasta.criar()
+
+        def arquivoHistorico = new FileWriter("saidasConsultas/Downloads/HistóricoPadrão-TISS.csv")
+        arquivoHistorico.write("competência" + "," + "publicação" + "," + "início de vigência"+ ";\n")
+
         historico.forEach {
-            println(it.competencia + " " + it.publicacao + " " + it.inicioVigencia)
+
+            arquivoHistorico.write(it.competencia + "," + it.publicacao + "," + it.inicioVigencia + ";\n")
         }
+
+        arquivoHistorico.close()
+
+        println "Arquivo CSV criado com sucesso em: ${arquivoHistorico}"
+
+        return true
     }
     catch (e){
+
         println("Erro: $e")
+
+        return false
     }
 }
 

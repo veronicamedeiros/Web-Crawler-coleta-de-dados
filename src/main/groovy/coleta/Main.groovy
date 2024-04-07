@@ -8,9 +8,9 @@ import static coleta.ObtendoDadosOuArquivos.baixarTabelaErrosEnvioANS.baixarTabe
 class Main{
     static void main(String[] args) {
 
-           baixarPadraoTISS()
+           //baixarPadraoTISS()
            pegarHistoricoVersoes()
-           baixarTabelaErros()
+           //baixarTabelaErros()
 
     }
 }

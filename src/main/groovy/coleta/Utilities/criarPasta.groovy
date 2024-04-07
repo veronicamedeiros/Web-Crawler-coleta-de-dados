@@ -1,6 +1,6 @@
 package coleta.Utilities
 
-static protected criar(){
+static public criar(){
 
     try {
         if( !(new File("saidasConsultas/", "Downloads").exists())){
