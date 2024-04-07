@@ -1,26 +1,26 @@
-package coleta
+package coleta.ObtendoDadosOuArquivos
 
-import coleta.Entities.historicoPorMes
+import coleta.Entities.HistoricoMes
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
 
-static protected pegarHistorico() throws IOException{
-    
+static public pegarHistoricoVersoes() throws IOException{
+
     try {
 
-        Document documento = Jsoup.connect("https://www.gov.br/ans/pt-br/assuntos/prestadores/padrao-para-troca-de-informacao-de-saude-suplementar-2013-tiss/padrao-tiss-historico-das-versoes-dos-componentes-do-padrao-tiss").get()
+        Document docPaginaHistorico = Jsoup.connect("https://www.gov.br/ans/pt-br/assuntos/prestadores/padrao-para-troca-de-informacao-de-saude-suplementar-2013-tiss/padrao-tiss-historico-das-versoes-dos-componentes-do-padrao-tiss").get()
 
-        List<historicoPorMes> historico = []
-
-
-        Element tabela = documento.select("table").get(0)
+        Element tabela = docPaginaHistorico.select("table").get(0)
 
         tabela.getElementsByTag("tr").first().remove() //remove o primeiro tr com o "cabeçalho"
 
         Elements elementosTr = tabela.getElementsByTag("tr")
+
+        List<HistoricoMes> historico = []
+
 
         elementosTr.forEach {
 
@@ -30,9 +30,11 @@ static protected pegarHistorico() throws IOException{
             Integer anoCompetencia = ano[1] as Integer
 
             if(anoCompetencia >= 2016){
-                String inicioVigencia = it.getElementsByTag("td").get(2).text()
+
                 String publicacao = it.getElementsByTag("td").get(1).text()
-                historico.add(new historicoPorMes(competencia, publicacao, inicioVigencia))
+                String inicioVigencia = it.getElementsByTag("td").get(2).text()
+
+                historico.add(new HistoricoMes(competencia, publicacao, inicioVigencia))
             }
         }
 

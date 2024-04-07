@@ -1,17 +1,20 @@
-package coleta
+package coleta.Utilities
 
+import coleta.Utilities.criarPasta
 import groovyx.net.http.HttpBuilder
 import groovyx.net.http.optional.Download
 import static groovyx.net.http.HttpBuilder.configure
 
-static baixar(url, arquivo){
+static baixarArquivo(url, arquivo){
+
+    criarPasta.criar()
 
     try {
         File diretorioDestino = new File("./saidasConsultas/Downloads/")
 
         File arquivoDestino = new File(diretorioDestino, arquivo)
 
-        
+
         HttpBuilder http = configure {
             request.uri = 'http://localhost:9876/'
         }
