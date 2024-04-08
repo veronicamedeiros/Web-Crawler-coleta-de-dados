@@ -5,12 +5,11 @@ import groovyx.net.http.HttpBuilder
 import groovyx.net.http.optional.Download
 import static groovyx.net.http.HttpBuilder.configure
 
-static baixarArquivo(url, arquivo){
+static baixarArquivo(String url, String arquivo, String pasta = "saidasConsultas", String subpasta = "Downloads"){
 
-    criarPasta.criar()
 
     try {
-        File diretorioDestino = new File("./saidasConsultas/Downloads/")
+        String diretorioDestino = criarPasta.criar(pasta, subpasta)
 
         File arquivoDestino = new File(diretorioDestino, arquivo)
 
@@ -24,9 +23,13 @@ static baixarArquivo(url, arquivo){
         }.get {
             Download.toFile(delegate, arquivoDestino)
         }
+
+        return true
     }
     catch (Exception e){
         println("Erro: $e")
+
+        return false
     }
 }
 

@@ -8,10 +8,9 @@ import org.jsoup.select.Elements
 import coleta.Utilities.criarPasta
 
 
-static public pegarHistoricoVersoes() throws IOException{
+static public pegarHistoricoVersoes(String pasta = "saidasConsultas", String subpasta = "Downloads") throws IOException{
 
     try {
-
         Document docPaginaHistorico = Jsoup.connect("https://www.gov.br/ans/pt-br/assuntos/prestadores/padrao-para-troca-de-informacao-de-saude-suplementar-2013-tiss/padrao-tiss-historico-das-versoes-dos-componentes-do-padrao-tiss").get()
         Element tabela = docPaginaHistorico.select("table").get(0)
         tabela.getElementsByTag("tr").first().remove() //remove o primeiro tr com o "cabeçalho"
@@ -37,9 +36,9 @@ static public pegarHistoricoVersoes() throws IOException{
         }
 
 
-        criarPasta.criar()
+        criarPasta.criar(pasta, subpasta)
 
-        def arquivoHistorico = new FileWriter("saidasConsultas/Downloads/HistóricoPadrão-TISS.csv")
+        def arquivoHistorico = new FileWriter("$pasta/$subpasta/HistóricoPadrão-TISS.csv")
         arquivoHistorico.write("competência" + "," + "publicação" + "," + "início de vigência"+ ";\n")
 
         historico.forEach {
@@ -49,11 +48,9 @@ static public pegarHistoricoVersoes() throws IOException{
 
         arquivoHistorico.close()
 
-        println "Arquivo CSV criado com sucesso."
-
         return true
     }
-    catch (e){
+    catch (Exception e){
 
         println("Erro: $e")
 

@@ -5,7 +5,7 @@ import org.jsoup.nodes.Document
 import static coleta.Utilities.baixarArquivos.baixarArquivo
 
 
-static baixarTabelaErros() throws IOException{
+static baixarTabelaErros(String pasta = "saidasConsultas", String subpasta = "Downloads") throws IOException{
 
     try {
 
@@ -13,9 +13,13 @@ static baixarTabelaErros() throws IOException{
 
         String url = docPaginaTabelasRelacionadas.getElementsByClass("internal-link").get(0).attr("href")
 
-        baixarArquivo(url,'Tabela de erros no envio para a ANS.xlsx')
+        baixarArquivo(url,'Tabela de erros no envio para a ANS.xlsx', pasta, subpasta)
+
+        return true
     }
     catch (Exception e){
         println("Erro: $e")
+
+        return false
     }
 }
