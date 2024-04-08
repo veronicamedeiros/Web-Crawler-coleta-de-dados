@@ -49,7 +49,7 @@ static public pegarHistoricoVersoes() throws IOException{
 
         arquivoHistorico.close()
 
-        println "Arquivo CSV criado com sucesso em: ${arquivoHistorico}"
+        println "Arquivo CSV criado com sucesso."
 
         return true
     }

@@ -4,6 +4,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import static coleta.Utilities.baixarArquivos.baixarArquivo
 
+
 static baixarPadraoTISS() throws IOException{
 
     try {
@@ -11,7 +12,7 @@ static baixarPadraoTISS() throws IOException{
 
         String paginaVersaoAtualPadraoTISS = docPaginaInicial.getElementsByClass("internal-link").get(0).attr("href")
 
-        Document docVersaoAtual = Jsoup.connect(paginaVersaoAtualPadraoTISS).get()  //UltimaVersaoPadraoTISS
+        Document docVersaoAtual = Jsoup.connect(paginaVersaoAtualPadraoTISS).get()
 
         String urlArquivosPadraoTISS = docVersaoAtual.getElementsByClass("btn btn-primary btn-sm center-block internal-link").get(3).attr("href")
 
