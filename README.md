@@ -16,6 +16,9 @@ _Para a coleta das informações, utilizaram-se as bibliotecas Jsoup e HttpBuild
  - Coletar, na tabela de Histórico das versões dos Componentes do Padrão TISS, os dados de competência, publicação e início de vigência a partir da competência de janeiro de 2016 e salvar em um arquivo no formato csv;
    
  - Baixar a "Tabela de erros no envio para a ANS".
+ 
+ 
+ As saídas (arquivos baixados e arquivo csv) podem ser encontradas na pasta Downloads (saidasConsultas/Downloads) - essas pastas são criadas automaticamente caso ainda não existam.
     
 
 ### Para acessar a aplicação, é necessário:
